@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const TVShowListWrapper = styled.div`
+  margin-top : 70px;
   display: flex;
   flex-direction: column;
 
@@ -14,15 +15,22 @@ const TVShowListWrapper = styled.div`
   }
 
   @media (max-width: 840px) { /* Phone */
-    width: 100%;
-    justify-content: center;
+  width: 80vw;
+  justify-content: center;
   }
+`;
+
+const ListVide = styled.h2`
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
 `;
 
 const MyList = ({ tvShows, searchTerm }) => {
   const [userList, setUserList] = useState(JSON.parse(localStorage.getItem('userList')) || []);
   const [loading, setLoading] = useState(true);
   const [myTvShows, setMyTVShows] = useState([]);
+
 
   useEffect(() => {
     setLoading(true);
@@ -47,13 +55,21 @@ const MyList = ({ tvShows, searchTerm }) => {
     fetchTVShows();
   }, [userList]);
 
+  useEffect(() => {
+    localStorage.setItem('userList', JSON.stringify(userList));
+    setUserList(userList)
+  }, [userList]);
+
   return (
     <>
       <TVShowListWrapper>
         {/* Render TVShowItem for each TV show in myTvShows */}
-        {myTvShows.map(tvShow => (
+        {!!myTvShows ? myTvShows.map(tvShow => (
           <TVShowItem key={tvShow.id} tvShow={tvShow} />
-        ))}
+        ))
+        :
+        <ListVide>Votre liste de films est vide</ListVide>
+        }
       </TVShowListWrapper>
     </>
   );

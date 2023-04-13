@@ -56,7 +56,7 @@ const TVShowListPage = () => {
   const tvShowsSlice = tvShows.slice(startIndex, endIndex);
 
   return (
-    <div>
+    <div style={{  marginTop : '60px'}}>
       <h1>TV Shows</h1>
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       {loading ? (

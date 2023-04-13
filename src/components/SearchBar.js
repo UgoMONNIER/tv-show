@@ -36,12 +36,12 @@ const SearchBar = ({ searchTerm, setSearchTerm }) => {
       <SearchBarForm className="searchbar__form">
         <SearchBarInput
           type="text"
-          placeholder="Search For Tv Show"
+          placeholder="Chercher une série"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <SearchBarButton className="btn btn-block" onClick={onSearchHandler}>
-          SEARCH
+          Chercher
         </SearchBarButton>
       </SearchBarForm>
     </SearchBarContainer>

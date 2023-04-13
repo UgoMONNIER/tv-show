@@ -58,17 +58,19 @@ const TVShowDate = styled.h4`
 `;
 
 const TVShowSummary = styled.p`
-  display:none;
+  display:${props => (props.isSuggestion ? 'block' : 'none')};
+  min-width : 300px;
+  width: 70%;
   margin: 8px 10px;
   font-size: 14px;
   text-align: justify;
-  white-space: ${props => (props.wrap ? 'wrap' : 'nowrap')}; 
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer; 
 `;
 
 const StyledButton = styled.button`
+  display: ${props => (props.isSuggestion ? 'none' : 'block')}; 
   background-color: #DCDCDC;
   height: 50px;
   width : 250px;
@@ -81,15 +83,15 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const TVShowItem = ({ tvShow }) => {
-  const [wrapText, setWrapText] = useState(false);
+const TVShowItem = ({ tvShow, isSuggestion }) => {
+  // const [wrapText, setWrapText] = useState(false);
   const [userList, setUserList] = useState(JSON.parse(localStorage.getItem('userList')) || []);
 
   const isAlreadyInMyList = userList.findIndex(item => item === tvShow?.id) !== -1;
 
-  const handleTextToggle = () => {
-    setWrapText(prev => !prev);
-  };
+  // const handleTextToggle = () => {
+  //   setWrapText(prev => !prev);
+  // };
 
   const handleAddToList = () => {
     setUserList(prevList => {
@@ -121,10 +123,10 @@ const TVShowItem = ({ tvShow }) => {
         <TVShowTitle>{tvShow?.averageRuntime + ' min'}</TVShowTitle>
         <TVShowDate>{tvShow?.premiered?.split('-', 1)}</TVShowDate>
       </InfoWrapper>
-      <TVShowSummary wrap={wrapText} onClick={handleTextToggle}>
+      <TVShowSummary isSuggestion={!!isSuggestion}>
         <div dangerouslySetInnerHTML={{ __html: tvShow?.summary }} />
       </TVShowSummary>
-      {isAlreadyInMyList ? <StyledButton onClick={handleRemoveFromList}>Retirer de ma Liste</StyledButton> : <StyledButton onClick={handleAddToList}>Ajouter à ma liste</StyledButton> }
+      {isAlreadyInMyList  ? <StyledButton isSuggestion={!!isSuggestion} onClick={handleRemoveFromList}>Retirer de ma Liste</StyledButton> : <StyledButton isSuggestion={!!isSuggestion} onClick={handleAddToList}>Ajouter à ma liste</StyledButton> }
     </TVShowItemWrapper>
   );
 };

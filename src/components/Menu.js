@@ -1,39 +1,40 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from 'react-router-dom';
 import styled from "styled-components";
 
 const MenuContainer = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 80px;
   width: 100vw;
   display: flex;
   justify-content: center;
   background-color: dark-blue;
+  backdrop-filter: blur(5px);
 `;
 
 const MenuItem = styled(NavLink)`
   padding: 20px;
   text-decoration: none;
   color: white;
-
-  &.active {
-    border-bottom: 2px solid #CCC;
-  }
 `;
 
 const Menu = () => {
+  let history = useHistory();
+
+  const handleRouteChange = (path) => {
+    history.push(path);
+  }
+
   return (
     <MenuContainer>
-      <MenuItem exact to="/" activeClassName="active">
-        TV Shows
-      </MenuItem>
-      <MenuItem to="/my-list" activeClassName="active">
-        My List
-      </MenuItem>
-      <MenuItem to="/suggestions" activeClassName="active">
-        Suggestion
-      </MenuItem>
+      <MenuItem to="/" onClick={() => handleRouteChange('/')}>TV Shows</MenuItem>
+      <MenuItem to="/suggestion" onClick={() => handleRouteChange('/suggestion')}>Suggestion</MenuItem>
+      <MenuItem to="/my-list" onClick={() => handleRouteChange('/my-list')}>My List</MenuItem>
     </MenuContainer>
   );
-};
+}
 
 export default Menu;
