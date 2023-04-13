@@ -29,7 +29,7 @@ const ListVide = styled.h2`
 const Suggestion = () => {
   const [myTvShow, setMyTVShow] = useState([]);
   const [userList, setUserList] = useState(JSON.parse(localStorage.getItem('userList')) || []);
-  console.log(userList)
+
   useEffect(() => {
     const fetchTVShow = async () => {
       if (userList.length > 0) {
@@ -49,15 +49,15 @@ const Suggestion = () => {
 
   return (
     <>
-    <TVShowListWrapper>
-      {
-        myTvShow
-        ? 
-          <TVShowItem key={myTvShow.id} tvShow={myTvShow} isSuggestion={true} />
-        :
-        <ListVide>Votre liste de films est vide donc pas de suggestion</ListVide>
-      }
-    </TVShowListWrapper>
+      <TVShowListWrapper>
+        {
+          myTvShow.length !== 0
+            ?
+            <TVShowItem key={myTvShow.id} tvShow={myTvShow} isSuggestion={true} />
+            :
+            <ListVide>Votre liste de films est vide donc nous n'avons pas de suggestion</ListVide>
+        }
+      </TVShowListWrapper>
     </>
   );
 };

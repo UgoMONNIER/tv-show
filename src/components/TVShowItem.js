@@ -83,7 +83,7 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
-const TVShowItem = ({ tvShow, isSuggestion }) => {
+const TVShowItem = ({ tvShow, isSuggestion , removeFromUserList }) => {
   // const [wrapText, setWrapText] = useState(false);
   const [userList, setUserList] = useState(JSON.parse(localStorage.getItem('userList')) || []);
 
@@ -106,6 +106,7 @@ const TVShowItem = ({ tvShow, isSuggestion }) => {
     setUserList(prevList => {
       const updatedList = JSON.parse(localStorage.getItem('userList')).filter(item => item !== tvShow?.id);
       localStorage.setItem('userList', JSON.stringify(updatedList));
+      removeFromUserList(tvShow?.id);
       return updatedList;
     });
   };

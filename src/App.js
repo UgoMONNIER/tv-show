@@ -9,10 +9,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 function App() {
 
 
-  useEffect(() => {
-    console.log(window)
-  }, []); 
-
   return (
     <Router>
       <div className="App">
